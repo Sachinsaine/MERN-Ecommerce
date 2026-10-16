@@ -3,9 +3,10 @@ const express = require("express");
 const dns = require("dns");
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
-require("dotenv").config();
-const cors = require("cors");
 
+require("dotenv").config();
+
+const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 
@@ -15,7 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-connectDB();
 
 app.get("/", (req, res) => {
   res.json({
@@ -25,6 +25,17 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 9000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Server startup failed:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./homepage.module.css";
 import {
   FiArrowRight,
@@ -12,7 +12,6 @@ import {
   FiPlus,
 } from "react-icons/fi";
 import { HomepageContext } from "../context/HomepageContext";
-import { useGetCategories } from "../hooks/getCategories";
 
 const products = [
   {
@@ -62,14 +61,25 @@ const products = [
 ];
 
 export const Homepage = () => {
-  const { categories } = useContext(HomepageContext);
-  const getCategories = useGetCategories();
-
-  useState(() => {
-    getCategories();
-  }, [getCategories]);
-
+  const { categories, setCategories, product } = useContext(HomepageContext);
   console.log(categories);
+  console.log(product);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const getCategories = await fetch(
+          `${import.meta.env.VITE_URL_API}/api/auth/homepage-category`,
+        );
+        const response = await getCategories.json();
+        setCategories(response.categories);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <main className={styles.homePage}>
