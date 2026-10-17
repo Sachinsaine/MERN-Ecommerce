@@ -1,0 +1,255 @@
+.footer {
+  background: #111111;
+  color: #ffffff;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.footerMain {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 65px 5% 55px;
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1.2fr 1.5fr;
+  gap: 45px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.logoIcon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: #e8004d;
+  color: #ffffff;
+  border-radius: 50%;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 25px;
+}
+
+.logoAccent {
+  color: #e8004d;
+}
+
+.brandDescription {
+  max-width: 300px;
+  margin: 22px 0;
+  color: #b8b8b8;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.socialLinks a {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  border: 1px solid #414141;
+  border-radius: 50%;
+  transition: all 0.25s ease;
+}
+
+.socialLinks a:hover {
+  color: #ffffff;
+  background: #e8004d;
+  border-color: #e8004d;
+  transform: translateY(-3px);
+}
+
+.socialLinks svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footerColumn,
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footerColumn h3,
+.newsletter h3 {
+  margin: 7px 0 25px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.footerColumn a {
+  margin-bottom: 17px;
+  color: #b8b8b8;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footerColumn a:hover {
+  color: #e8004d;
+}
+
+.newsletter > p {
+  margin: -7px 0 22px;
+  color: #b8b8b8;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.subscribeForm {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #666666;
+}
+
+.subscribeForm input {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 5px;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.subscribeForm input::placeholder {
+  color: #999999;
+}
+
+.subscribeForm input:focus-visible {
+  outline: 1px solid #e8004d;
+  outline-offset: 2px;
+}
+
+.subscribeForm button {
+  padding: 0 12px;
+  color: #e8004d;
+  background: transparent;
+  border: none;
+  font-size: 27px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.subscribeForm button:hover {
+  color: #ff5b8b;
+}
+
+.newsletter .privacyText {
+  margin-top: 14px;
+  font-size: 11px;
+  color: #858585;
+}
+
+.footerBottom {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px 5%;
+  border-top: 1px solid #303030;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footerBottom p {
+  margin: 0;
+  color: #999999;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.legalLinks a {
+  color: #999999;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legalLinks a:hover {
+  color: #e8004d;
+}
+
+.madeWith span {
+  color: #e8004d;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .footerMain {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 45px 35px;
+  }
+
+  .footerBottom {
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .footerMain {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 45px 6% 35px;
+  }
+
+  .brandDescription {
+    max-width: 100%;
+  }
+
+  .footerColumn h3,
+  .newsletter h3 {
+    margin-bottom: 18px;
+  }
+
+  .footerColumn a {
+    margin-bottom: 14px;
+  }
+
+  .newsletter {
+    width: 100%;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 22px 6%;
+  }
+
+  .legalLinks {
+    gap: 15px;
+  }
+}

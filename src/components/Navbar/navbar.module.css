@@ -1,0 +1,196 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.navbar {
+  max-width: 1440px;
+  min-height: 82px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0a0a0a;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.logoIcon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: #e8004d;
+  color: #ffffff;
+  border-radius: 50%;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 25px;
+}
+
+.logoAccent {
+  color: #e8004d;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navLinks a {
+  color: #333333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.navLinks a:hover {
+  color: #e8004d;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.iconButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #0a0a0a;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.iconButton svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.iconButton:hover {
+  color: #e8004d;
+}
+
+.loginButton {
+  padding: 12px 21px;
+  border-radius: 3px;
+  background: #e8004d;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.loginButton:hover {
+  background: #c90042;
+}
+
+.menuToggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #0a0a0a;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+  .navbar {
+    gap: 18px;
+    padding: 0 3%;
+  }
+
+  .navLinks {
+    gap: 15px;
+  }
+
+  .navActions {
+    gap: 11px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 780px) {
+  .navbar {
+    min-height: 72px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 5%;
+  }
+
+  .menuToggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .navLinks {
+    display: none;
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0;
+  }
+
+  .navLinksOpen {
+    display: flex;
+  }
+
+  .navLinks a {
+    padding: 14px 5px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .navActions {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0 4px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .navLinksOpen + .navActions {
+    order: 4;
+  }
+}
+
+@media (max-width: 380px) {
+  .navActions {
+    gap: 18px;
+  }
+
+  .loginButton {
+    padding: 10px 15px;
+  }
+}
