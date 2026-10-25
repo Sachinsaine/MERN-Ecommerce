@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./navbar.module.css";
+import logo from "../../assets/logo.png";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,10 +12,7 @@ export const Navbar = () => {
     <header className={styles.header}>
       <nav className={styles.navbar}>
         <Link to="/" className={styles.logo} onClick={closeMenu}>
-          <span className={styles.logoIcon}>S</span>
-          <span>
-            STYLE<span className={styles.logoAccent}>ORA</span>
-          </span>
+          <img src={logo} alt="" />
         </Link>
 
         <button

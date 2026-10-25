@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import styles from "./footer.module.css";
+import logo from "../../assets/logo.png";
 
 export const Footer = () => {
   const [email, setEmail] = useState("");
@@ -17,13 +18,9 @@ export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerMain}>
-        {/* Brand */}
         <div className={styles.brandSection}>
           <Link to="/" className={styles.logo}>
-            <span className={styles.logoIcon}>S</span>
-            <span>
-              STYLE<span className={styles.logoAccent}>ORA</span>
-            </span>
+            <img src={logo} alt="" />
           </Link>
 
           <p className={styles.brandDescription}>
@@ -69,7 +66,6 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Shopping */}
         <div className={styles.footerColumn}>
           <h3>SHOP</h3>
           <Link to="/">New Arrivals</Link>
@@ -79,7 +75,6 @@ export const Footer = () => {
           <Link to="/">Sale</Link>
         </div>
 
-        {/* Customer service */}
         <div className={styles.footerColumn}>
           <h3>HELP & SUPPORT</h3>
           <Link to="/">Contact Us</Link>
@@ -89,7 +84,6 @@ export const Footer = () => {
           <Link to="/">Track Your Order</Link>
         </div>
 
-        {/* Newsletter */}
         <div className={styles.newsletter}>
           <h3>STAY IN STYLE</h3>
           <p>
@@ -117,7 +111,6 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className={styles.footerBottom}>
         <p>© {new Date().getFullYear()} STYLEORA. All rights reserved.</p>
 

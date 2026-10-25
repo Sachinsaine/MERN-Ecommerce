@@ -41,6 +41,9 @@
   color: #e8004d;
 }
 
+.logo img {
+  width: 186px;
+}
 .brandDescription {
   max-width: 300px;
   margin: 22px 0;
