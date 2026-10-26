@@ -62,7 +62,8 @@ const products = [
 ];
 
 export const Homepage = () => {
-  const { categories, setCategories, product } = useContext(HomepageContext);
+  const { categories, setCategories, product, setProduct } =
+    useContext(HomepageContext);
   console.log(categories);
   console.log(product);
 
@@ -79,7 +80,30 @@ export const Homepage = () => {
         console.log(error);
       }
     };
+
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_URL_API}/api/auth/homepage-product`,
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch homepage products");
+        }
+
+        const data = await response.json();
+
+        console.log("Complete API response:", data);
+        console.log("Products:", data.products);
+
+        setProduct(data.products ?? []);
+      } catch (error) {
+        console.error("Product fetch failed:", error);
+      }
+    };
+
     fetchCategories();
+    fetchProducts();
   }, []);
 
   return (

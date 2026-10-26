@@ -29,7 +29,7 @@ export const Navbar = () => {
             menuOpen ? styles.navLinksOpen : ""
           }`}
         >
-          <Link to="/" onClick={closeMenu}>
+          <Link to="/home" onClick={closeMenu}>
             Home
           </Link>
           <Link to="/" onClick={closeMenu}>

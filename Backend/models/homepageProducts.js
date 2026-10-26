@@ -10,7 +10,7 @@ const HomepageProducts = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "HomepageCategories",
       required: true,
     },
     price: {

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { HomepageContext } from "../components/context/HomepageContext";
 
-export const HomepageProducts = () => {
+export const useHomepageProducts = () => {
   const { setProduct } = useContext(HomepageContext);
 
   useEffect(() => {

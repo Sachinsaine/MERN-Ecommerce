@@ -1,20 +1,23 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { HomepageContextProvider } from "./components/context/HomepageContextProvider";
 import { Homepage } from "./components/Homepage/Homepage";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Footer } from "./components/Footer/Footer";
+import { Dashboard } from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
     <>
-      {/* <Dashboard /> */}
       <BrowserRouter>
-        <Navbar />
         <HomepageContextProvider>
-          <Homepage />
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/home" element={<Dashboard />} />
+          </Routes>
+          <Footer />
         </HomepageContextProvider>
-        <Footer/>
       </BrowserRouter>
     </>
   );
