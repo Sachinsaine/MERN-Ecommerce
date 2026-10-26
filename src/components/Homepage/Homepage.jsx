@@ -14,53 +14,6 @@ import {
 } from "react-icons/fi";
 import { HomepageContext } from "../context/HomepageContext";
 
-const products = [
-  {
-    id: 1,
-    name: "Elegant Summer Dress",
-    category: "Women's Fashion",
-    price: 1899,
-    oldPrice: 2499,
-    rating: 4.8,
-    image:
-      "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=600&q=80",
-    badge: "BESTSELLER",
-  },
-  {
-    id: 2,
-    name: "Classic Everyday Sneakers",
-    category: "Footwear",
-    price: 2499,
-    oldPrice: 3299,
-    rating: 4.6,
-    image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
-    badge: "POPULAR",
-  },
-  {
-    id: 3,
-    name: "Premium Shoulder Bag",
-    category: "Accessories",
-    price: 1599,
-    oldPrice: 2199,
-    rating: 4.7,
-    image:
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80",
-    badge: "TRENDING",
-  },
-  {
-    id: 4,
-    name: "Minimal Men's Shirt",
-    category: "Men's Fashion",
-    price: 1299,
-    oldPrice: 1799,
-    rating: 4.5,
-    image:
-      "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=600&q=80",
-    badge: "",
-  },
-];
-
 export const Homepage = () => {
   const { categories, setCategories, product, setProduct } =
     useContext(HomepageContext);
@@ -275,10 +228,10 @@ export const Homepage = () => {
         </div>
 
         <div className={styles.productsGrid}>
-          {products.map((product) => (
+          {product.map((product) => (
             <article className={styles.homeProductCard} key={product.id}>
               <div className={styles.productImageWrapper}>
-                <img src={product.image} alt={product.name} />
+                <img src={product.category.image} alt={product.name} />
 
                 {product.badge && (
                   <span className={styles.productBadge}>{product.badge}</span>
@@ -294,7 +247,9 @@ export const Homepage = () => {
               </div>
 
               <div className={styles.homeProductInfo}>
-                <p className={styles.homeProductCategory}>{product.category}</p>
+                <p className={styles.homeProductCategory}>
+                  {product.category.name}
+                </p>
 
                 <h3>{product.name}</h3>
 
