@@ -126,7 +126,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* Benefits Section */}
       <section className={styles.benefitsBar}>
         <div className={styles.benefitItem}>
           <span className={styles.benefitIcon}>
@@ -208,7 +207,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* Featured Products Section */}
       <section
         id="products"
         className={`${styles.homeSection} ${styles.productsSection}`}

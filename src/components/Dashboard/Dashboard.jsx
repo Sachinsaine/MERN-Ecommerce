@@ -2,11 +2,13 @@ import { useContext } from "react";
 import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
 import { HomepageContext } from "../context/HomepageContext";
 import styles from "./dashboard.module.css";
+import { FiHeart, FiStar, FiPlus } from "react-icons/fi";
 
 export const Dashboard = () => {
   useFetchDashboardProducts();
 
   const { dashboardProducts = [] } = useContext(HomepageContext);
+  console.log(dashboardProducts);
 
   return (
     <main className={styles.dashboardPage}>
@@ -39,81 +41,60 @@ export const Dashboard = () => {
           </div>
         ) : (
           <div className={styles.productsGrid}>
-            {dashboardProducts.map((item) => {
-              const price = Number(item.price);
-              const oldPrice = Number(item.oldPrice);
-              const hasDiscount =
-                item.oldPrice != null &&
-                item.oldPrice !== "" &&
-                oldPrice > price &&
-                price >= 0;
+            {dashboardProducts.map((product) => (
+              <article className={styles.homeProductCard} key={product.id}>
+                <div className={styles.productImageWrapper}>
+                  <img src={product.image_link} alt={product.name} />
 
-              const category =
-                typeof item.category === "object"
-                  ? item.category?.name
-                  : item.category;
+                  {product.badge && (
+                    <span className={styles.productBadge}>{product.badge}</span>
+                  )}
 
-              return (
-                <article className={styles.productCard} key={item._id}>
-                  <div className={styles.productImageWrapper}>
-                    <img src={item.image_link} alt={item.name} loading="lazy" />
+                  <button
+                    type="button"
+                    className={styles.productWishlist}
+                    aria-label={`Add ${product.name} to wishlist`}
+                  >
+                    <FiHeart />
+                  </button>
+                </div>
 
-                    <span className={styles.productBadge}>
-                      {item.badge || "POPULAR"}
-                    </span>
+                <div className={styles.homeProductInfo}>
+                  <p className={styles.homeProductCategory}>
+                    {product.category}
+                  </p>
 
-                    <button
-                      type="button"
-                      className={styles.wishlistButton}
-                      aria-label={`Add ${item.name} to wishlist`}
-                    >
-                      ♡
-                    </button>
+                  <h3>{product.name}</h3>
+                  <p className={styles.brand}>{product.brand}</p>
+
+                  <div className={styles.productRating}>
+                    <span>
+                      <FiStar />
+                    </span>{" "}
+                    {product.rating ?? "3.2"}
                   </div>
 
-                  <div className={styles.productInfo}>
-                    <p className={styles.productCategory}>
-                      {category || item.product_type || "COLLECTION"}
-                    </p>
+                  <div className={styles.homeProductPrice}>
+                    <strong>₹{product.price}</strong>
 
-                    <h3 className={styles.productName}>{item.name}</h3>
+                    <del>₹{product.oldPrice}</del>
 
-                    <p className={styles.productBrand}>{item.brand}</p>
-
-                    <div className={styles.productRating}>
-                      <span aria-hidden="true">☆</span>
-                      <span className={styles.ratingValue}>
-                        {item.rating ?? "3.2"}
-                      </span>
-                    </div>
-
-                    <div className={styles.productPrice}>
-                      <strong>
-                        ₹
-                        {Number.isFinite(price)
-                          ? price.toLocaleString("en-IN")
-                          : item.price}
-                      </strong>
-
-                      {hasDiscount && (
-                        <>
-                          <del>₹{oldPrice.toLocaleString("en-IN")}</del>
-                          <span className={styles.discount}>
-                            {Math.round(((oldPrice - price) / oldPrice) * 100)}%
-                            OFF
-                          </span>
-                        </>
+                    <span className={styles.discountLabel}>
+                      {Math.round(
+                        ((product.oldPrice - product.price) /
+                          product.oldPrice) *
+                          100,
                       )}
-                    </div>
-
-                    <button type="button" className={styles.addToCartButton}>
-                      <span>Add to Cart</span>
-                      <span className={styles.cartPlus}>＋</span>
-                    </button>
+                      % OFF
+                    </span>
                   </div>
-                </article>
-              );
-            })}
+
+                  <button type="button" className={styles.addToCartBtn}>
+                    Add to Cart <FiPlus />
+                  </button>
+                </div>
+              </article>
+            ))}
           </div>
         )}
       </section>
