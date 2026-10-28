@@ -3,10 +3,19 @@ import { DashboardContext } from "./DashboardContext";
 
 export const DashboardProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
+  const [dashboardProducts, setDashboardProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
+
   return (
     <DashboardContext.Provider
-      value={{ loading, setLoading, cartProducts, setCartProducts }}
+      value={{
+        dashboardProducts,
+        setDashboardProducts,
+        loading,
+        setLoading,
+        cartProducts,
+        setCartProducts,
+      }}
     >
       {children}
     </DashboardContext.Provider>

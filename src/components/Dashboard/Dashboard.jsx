@@ -1,14 +1,25 @@
 import { useContext } from "react";
 import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
-import { HomepageContext } from "../context/HomepageContext";
 import styles from "./dashboard.module.css";
 import { FiHeart, FiStar, FiPlus } from "react-icons/fi";
+import { DashboardContext } from "../context/DashboardContext";
 
 export const Dashboard = () => {
   useFetchDashboardProducts();
 
-  const { dashboardProducts = [] } = useContext(HomepageContext);
-  console.log(dashboardProducts);
+  const {
+    dashboardProducts = [],
+    loading,
+    setCartProducts,
+  } = useContext(DashboardContext);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  const handleAddToCart = (item) => {
+    setCartProducts((prev) => [...prev, item]);
+  };
 
   return (
     <main className={styles.dashboardPage}>
@@ -89,7 +100,11 @@ export const Dashboard = () => {
                     </span>
                   </div>
 
-                  <button type="button" className={styles.addToCartBtn}>
+                  <button
+                    type="button"
+                    className={styles.addToCartBtn}
+                    onClick={() => handleAddToCart(product)}
+                  >
                     Add to Cart <FiPlus />
                   </button>
                 </div>
