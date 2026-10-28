@@ -208,7 +208,6 @@
   color: #e8004d;
 }
 
-/* Tablet */
 @media (max-width: 1050px) {
   .footerMain {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -220,7 +219,6 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 600px) {
   .footerMain {
     grid-template-columns: 1fr;

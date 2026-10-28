@@ -168,7 +168,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
       <section
         id="categories"
         className={`${styles.homeSection} ${styles.categoriesSection}`}
@@ -281,7 +280,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* Promotional Banner */}
       <section className={styles.promoSection}>
         <div className={styles.promoContent}>
           <p className={styles.sectionEyebrow}>A LITTLE SOMETHING SPECIAL</p>
@@ -317,7 +315,6 @@ export const Homepage = () => {
         </div>
       </section>
 
-      {/* Newsletter Section */}
       <section className={styles.newsletterSection}>
         <p className={styles.sectionEyebrow}>STAY IN THE LOOP</p>
 

@@ -5,6 +5,7 @@ import { Homepage } from "./components/Homepage/Homepage";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Footer } from "./components/Footer/Footer";
 import { Dashboard } from "./components/Dashboard/Dashboard";
+import { DashboardProvider } from "./components/context/DashboardProvider";
 
 function App() {
   return (
@@ -14,7 +15,14 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/home" element={<Dashboard />} />
+            <Route
+              path="/home"
+              element={
+                <DashboardProvider>
+                  <Dashboard />
+                </DashboardProvider>
+              }
+            />
           </Routes>
           <Footer />
         </HomepageContextProvider>
