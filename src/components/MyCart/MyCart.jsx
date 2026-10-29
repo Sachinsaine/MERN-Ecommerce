@@ -2,9 +2,19 @@ import { useContext } from "react";
 import { DashboardContext } from "../context/DashboardContext";
 import styles from "./mycart.module.css";
 import { FiTrash2 } from "react-icons/fi";
+import { MdOutlineArrowRightAlt } from "react-icons/md";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const MyCart = () => {
-  const { cartProducts = [] } = useContext(DashboardContext);
+  const { cartProducts = [], setCartProducts } = useContext(DashboardContext);
+
+  const handleRemove = (item) => {
+    setCartProducts((prev) =>
+      prev.filter((product) => product._id !== item._id),
+    );
+    toast.success("Product removed from cart!");
+  };
 
   return (
     <main className={styles.myCartPage}>
@@ -14,6 +24,9 @@ export const MyCart = () => {
             <div className={styles.emptyState}>
               <h3>Your cart is empty</h3>
               <p>Add products from the dashboard to see them here.</p>
+              <Link to="/home" type="button" className={styles.addToCartBtn}>
+                SHOP NOW
+              </Link>
             </div>
           ) : (
             <div className={styles.productsGrid}>
@@ -33,7 +46,7 @@ export const MyCart = () => {
                     <p className={styles.brand}>{product.brand}</p>
 
                     <div className={styles.homeProductPrice}>
-                      <strong>₹{product.price}</strong>
+                      <strong>{`₹ ${product.price}.00`}</strong>
                     </div>
                   </div>
 
@@ -42,7 +55,11 @@ export const MyCart = () => {
                       BUY NOW
                     </button>
 
-                    <button type="button" className={styles.removeButton}>
+                    <button
+                      type="button"
+                      className={styles.removeButton}
+                      onClick={() => handleRemove(product)}
+                    >
                       <FiTrash2 size={16} /> <span>REMOVE</span>
                     </button>
                   </div>
@@ -88,7 +105,8 @@ export const MyCart = () => {
           </div>
 
           <button type="button" className={styles.checkoutButton}>
-            Proceed to Checkout
+            <span>Proceed to Checkout</span>{" "}
+            <MdOutlineArrowRightAlt size={26} />
           </button>
 
           <p className={styles.deliveryNote}>

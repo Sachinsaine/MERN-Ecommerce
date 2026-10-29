@@ -3,9 +3,12 @@ import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
 import styles from "./dashboard.module.css";
 import { FiHeart, FiStar, FiPlus } from "react-icons/fi";
 import { DashboardContext } from "../context/DashboardContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
   useFetchDashboardProducts();
+  const navigate = useNavigate();
 
   const {
     dashboardProducts = [],
@@ -19,6 +22,13 @@ export const Dashboard = () => {
 
   const handleAddToCart = (item) => {
     setCartProducts((prev) => [...prev, item]);
+    toast.success("Product has been added to the cart!");
+  };
+
+  const handleSelectedProduct = (item) => {
+    navigate("/product-details", {
+      state: { product: item },
+    });
   };
 
   return (
@@ -75,7 +85,9 @@ export const Dashboard = () => {
                     {product.category}
                   </p>
 
-                  <h3>{product.name}</h3>
+                  <h3 onClick={() => handleSelectedProduct(product)}>
+                    {product.name}
+                  </h3>
                   <p className={styles.brand}>{product.brand}</p>
 
                   <div className={styles.productRating}>
