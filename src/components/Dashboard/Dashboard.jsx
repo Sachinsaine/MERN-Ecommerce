@@ -13,6 +13,7 @@ export const Dashboard = () => {
 
   const {
     dashboardProducts = [],
+    cartProducts = [],
     loading,
     setCartProducts,
   } = useContext(DashboardContext);
@@ -22,8 +23,15 @@ export const Dashboard = () => {
   }
 
   const handleAddToCart = (item) => {
+    const alreadyExist = cartProducts.some(
+      (product) => product._id === item._id,
+    );
+
+    if (alreadyExist) {
+      toast.error("Product is already in your cart!");
+      return;
+    }
     setCartProducts((prev) => [...prev, item]);
-    setAdded((prev) => [...prev, item._id]);
     toast.success("Product has been added to the cart!");
   };
 
@@ -118,8 +126,9 @@ export const Dashboard = () => {
                     type="button"
                     className={styles.addToCartBtn}
                     onClick={() => handleAddToCart(product)}
+                    disabled={added.includes(product._id)}
                   >
-                    {added.includes(product._id) ? (
+                    {cartProducts.some((item) => item._id === product._id) ? (
                       "Added"
                     ) : (
                       <>

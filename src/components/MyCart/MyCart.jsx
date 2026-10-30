@@ -17,15 +17,13 @@ export const MyCart = () => {
   };
 
   const totalAddedProducts = cartProducts.length;
-  // const total = cartProducts.map((amount) => amount.price);
   const subTotal = useMemo(() => {
     return cartProducts.reduce(
       (sum, product) => sum + Number(product.price),
       0,
     );
   }, [cartProducts]);
-  console.log("Cart Products:", cartProducts);
-  console.log("Cart Length:", cartProducts.length);
+
   return (
     <main className={styles.myCartPage}>
       <div className={styles.cartLayout}>
@@ -57,6 +55,24 @@ export const MyCart = () => {
 
                     <div className={styles.homeProductPrice}>
                       <strong>{`₹ ${product.price}.00`}</strong>
+                    </div>
+
+                    <div className={styles.quantityWrapper}>
+                      <span className={styles.quantityLabel}>Quantity</span>
+
+                      <div className={styles.quantityControl}>
+                        <button type="button" aria-label="Decrease quantity">
+                          −
+                        </button>
+
+                        <span className={styles.quantityValue}>
+                          <span className={styles.quantityValue}>0</span>
+                        </span>
+
+                        <button type="button" aria-label="Increase quantity">
+                          +
+                        </button>
+                      </div>
                     </div>
                   </div>
 
