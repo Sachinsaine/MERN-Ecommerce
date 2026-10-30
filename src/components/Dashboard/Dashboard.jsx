@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
 import styles from "./dashboard.module.css";
 import { FiHeart, FiStar, FiPlus } from "react-icons/fi";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 export const Dashboard = () => {
   useFetchDashboardProducts();
   const navigate = useNavigate();
+  const [added, setAdded] = useState([]);
 
   const {
     dashboardProducts = [],
@@ -22,6 +23,7 @@ export const Dashboard = () => {
 
   const handleAddToCart = (item) => {
     setCartProducts((prev) => [...prev, item]);
+    setAdded((prev) => [...prev, item._id]);
     toast.success("Product has been added to the cart!");
   };
 
@@ -117,7 +119,13 @@ export const Dashboard = () => {
                     className={styles.addToCartBtn}
                     onClick={() => handleAddToCart(product)}
                   >
-                    Add to Cart <FiPlus />
+                    {added.includes(product._id) ? (
+                      "Added"
+                    ) : (
+                      <>
+                        <FiPlus /> Add To Cart
+                      </>
+                    )}
                   </button>
                 </div>
               </article>

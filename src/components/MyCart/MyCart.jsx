@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { DashboardContext } from "../context/DashboardContext";
 import styles from "./mycart.module.css";
 import { FiTrash2 } from "react-icons/fi";
@@ -17,8 +17,15 @@ export const MyCart = () => {
   };
 
   const totalAddedProducts = cartProducts.length;
-  console.log(totalAddedProducts);
-
+  // const total = cartProducts.map((amount) => amount.price);
+  const subTotal = useMemo(() => {
+    return cartProducts.reduce(
+      (sum, product) => sum + Number(product.price),
+      0,
+    );
+  }, [cartProducts]);
+  console.log("Cart Products:", cartProducts);
+  console.log("Cart Length:", cartProducts.length);
   return (
     <main className={styles.myCartPage}>
       <div className={styles.cartLayout}>
@@ -82,7 +89,7 @@ export const MyCart = () => {
 
           <div className={styles.summaryRow}>
             <span>Subtotal</span>
-            <span>₹2,997</span>
+            <span>{`₹${subTotal}.00`}</span>
           </div>
 
           <div className={styles.summaryRow}>
@@ -104,7 +111,7 @@ export const MyCart = () => {
 
           <div className={`${styles.summaryRow} ${styles.totalRow}`}>
             <span>Total Amount</span>
-            <strong>₹2,746</strong>
+            <strong>{`₹${subTotal}.00`}</strong>
           </div>
 
           <button type="button" className={styles.checkoutButton}>
