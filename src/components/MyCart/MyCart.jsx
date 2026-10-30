@@ -16,6 +16,9 @@ export const MyCart = () => {
     toast.success("Product removed from cart!");
   };
 
+  const totalAddedProducts = cartProducts.length;
+  console.log(totalAddedProducts);
+
   return (
     <main className={styles.myCartPage}>
       <div className={styles.cartLayout}>
@@ -74,7 +77,7 @@ export const MyCart = () => {
 
           <div className={styles.summaryRow}>
             <span>Total Products</span>
-            <span>3 items</span>
+            <span>{`${totalAddedProducts} items`}</span>
           </div>
 
           <div className={styles.summaryRow}>

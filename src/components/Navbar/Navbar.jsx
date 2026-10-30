@@ -43,10 +43,10 @@ export const Navbar = () => {
           <Link to="/" onClick={closeMenu}>
             Categories
           </Link>
-          <Link to="/" onClick={closeMenu}>
+          <Link to="/about" onClick={closeMenu}>
             About
           </Link>
-          <Link to="/" onClick={closeMenu}>
+          <Link to="/contact" onClick={closeMenu}>
             Contact
           </Link>
         </div>
