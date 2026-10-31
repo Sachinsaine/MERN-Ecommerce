@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import { ProductDetails } from "./components/ProductDetails/ProductDetails";
 import { About } from "./components/About/About";
 import { Contact } from "./components/Contact/Contact";
+import { Wishlist } from "./components/Wishlist/Wishlist";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/product-details" element={<ProductDetails />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/wishlist" element={<Wishlist />} />
           </Routes>
 
           <Footer />

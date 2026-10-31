@@ -60,7 +60,11 @@ export const Navbar = () => {
             <FiSearch />
           </button>
 
-          <Link to="/" className={styles.iconButton} aria-label="Wishlist">
+          <Link
+            to="/wishlist"
+            className={styles.iconButton}
+            aria-label="Wishlist"
+          >
             <FiHeart />
           </Link>
 

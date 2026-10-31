@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
 import styles from "./dashboard.module.css";
-import { FiHeart, FiStar, FiPlus } from "react-icons/fi";
+import { FiHeart, FiStar, FiPlus, FiShoppingCart } from "react-icons/fi";
 import { DashboardContext } from "../context/DashboardContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +53,6 @@ export const Dashboard = () => {
       toast.success("Added to wishlist!");
     }
   };
-  console.log(wishlist);
 
   return (
     <main className={styles.dashboardPage}>
@@ -150,7 +149,7 @@ export const Dashboard = () => {
                       "Added"
                     ) : (
                       <>
-                        <FiPlus /> Add To Cart
+                        <FiShoppingCart /> Add To Cart
                       </>
                     )}
                   </button>

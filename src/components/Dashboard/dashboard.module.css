@@ -152,7 +152,7 @@
   color: var(--white);
 }
 .active {
-  background: #ff4d6d;
+  background: var(--pink);
   color: #fff;
 }
 
