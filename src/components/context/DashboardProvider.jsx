@@ -5,6 +5,7 @@ export const DashboardProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [dashboardProducts, setDashboardProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
 
   return (
     <DashboardContext.Provider
@@ -15,6 +16,8 @@ export const DashboardProvider = ({ children }) => {
         setLoading,
         cartProducts,
         setCartProducts,
+        wishlist,
+        setWishlist,
       }}
     >
       {children}

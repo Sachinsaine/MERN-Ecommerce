@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
 import styles from "./productdetails.module.css";
 
@@ -84,9 +84,9 @@ export const ProductDetails = () => {
           )}
 
           <div className={styles.purchaseRow}>
-            <button type="button" className={styles.buyButton}>
+            <Link to="/home" type="button" className={styles.buyButton}>
               BUY NOW
-            </button>
+            </Link>
           </div>
         </section>
       </div>

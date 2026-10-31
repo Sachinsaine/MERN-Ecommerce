@@ -151,6 +151,10 @@
   background: var(--pink);
   color: var(--white);
 }
+.active {
+  background: #ff4d6d;
+  color: #fff;
+}
 
 .homeProductInfo {
   padding: 19px 16px 17px;
@@ -250,7 +254,6 @@
   font-size: 13px;
   line-height: 1.8;
 }
-
 
 @media (max-width: 1100px) {
   .productsGrid {

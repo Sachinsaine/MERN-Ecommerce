@@ -10,12 +10,13 @@ export const Dashboard = () => {
   useFetchDashboardProducts();
   const navigate = useNavigate();
   const [added, setAdded] = useState([]);
-
   const {
     dashboardProducts = [],
     cartProducts = [],
     loading,
     setCartProducts,
+    wishlist,
+    setWishlist,
   } = useContext(DashboardContext);
 
   if (loading) {
@@ -40,6 +41,19 @@ export const Dashboard = () => {
       state: { product: item },
     });
   };
+
+  const handleWishlist = (product) => {
+    const exitstproduct = wishlist.some((item) => item._id === product._id);
+
+    if (exitstproduct) {
+      setWishlist((prev) => prev.filter((item) => item._id !== product._id));
+      toast.success("Removed from the wishlist!");
+    } else {
+      setWishlist((prev) => [...prev, product]);
+      toast.success("Added to wishlist!");
+    }
+  };
+  console.log(wishlist);
 
   return (
     <main className={styles.dashboardPage}>
@@ -73,7 +87,7 @@ export const Dashboard = () => {
         ) : (
           <div className={styles.productsGrid}>
             {dashboardProducts.map((product) => (
-              <article className={styles.homeProductCard} key={product.id}>
+              <article className={styles.homeProductCard} key={product._id}>
                 <div className={styles.productImageWrapper}>
                   <img src={product.image_link} alt={product.name} />
 
@@ -83,8 +97,12 @@ export const Dashboard = () => {
 
                   <button
                     type="button"
-                    className={styles.productWishlist}
-                    aria-label={`Add ${product.name} to wishlist`}
+                    className={`${styles.productWishlist} ${
+                      wishlist.some((item) => item._id === product._id)
+                        ? styles.active
+                        : ""
+                    }`}
+                    onClick={() => handleWishlist(product)}
                   >
                     <FiHeart />
                   </button>

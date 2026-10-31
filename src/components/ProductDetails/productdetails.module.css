@@ -192,6 +192,7 @@
   min-height: 38px;
   padding: 10px 16px;
   color: #fff;
+  text-align: center;
   background: #ed0050;
   border: 1px solid #ed0050;
   border-radius: 2px;
@@ -206,6 +207,7 @@
 .buyButton:hover {
   background: #c90043;
   border-color: #c90043;
+  color: #fff;
   transform: translateY(-1px);
 }
 
