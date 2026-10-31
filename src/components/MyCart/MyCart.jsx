@@ -5,9 +5,13 @@ import { FiTrash2 } from "react-icons/fi";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useCounterStore } from "../../store/counterStore";
 
 export const MyCart = () => {
   const { cartProducts = [], setCartProducts } = useContext(DashboardContext);
+  const count = useCounterStore((state) => state.count);
+  const increase = useCounterStore((state) => state.increase);
+  const decrease = useCounterStore((state) => state.decrease);
 
   const handleRemove = (item) => {
     setCartProducts((prev) =>
@@ -61,15 +65,23 @@ export const MyCart = () => {
                       <span className={styles.quantityLabel}>Quantity</span>
 
                       <div className={styles.quantityControl}>
-                        <button type="button" aria-label="Decrease quantity">
+                        <button
+                          type="button"
+                          aria-label="Decrease quantity"
+                          onClick={decrease}
+                        >
                           −
                         </button>
 
                         <span className={styles.quantityValue}>
-                          <span className={styles.quantityValue}>0</span>
+                          <span className={styles.quantityValue}>{count}</span>
                         </span>
 
-                        <button type="button" aria-label="Increase quantity">
+                        <button
+                          type="button"
+                          aria-label="Increase quantity"
+                          onClick={increase}
+                        >
                           +
                         </button>
                       </div>
