@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import { DashboardContext } from "../context/DashboardContext";
 import styles from "./mycart.module.css";
 import { FiTrash2 } from "react-icons/fi";
@@ -6,19 +6,15 @@ import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useCounterStore } from "../../store/counterStore";
+import { MyCartDialog } from "./MyCartDialog";
 
 export const MyCart = () => {
   const { cartProducts = [], setCartProducts } = useContext(DashboardContext);
   const count = useCounterStore((state) => state.count);
   const increase = useCounterStore((state) => state.increase);
   const decrease = useCounterStore((state) => state.decrease);
-
-  const handleRemove = (item) => {
-    setCartProducts((prev) =>
-      prev.filter((product) => product._id !== item._id),
-    );
-    toast.success("Product removed from cart!");
-  };
+  const [open, setOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const totalAddedProducts = cartProducts.length;
   const subTotal = useMemo(() => {
@@ -27,6 +23,27 @@ export const MyCart = () => {
       0,
     );
   }, [cartProducts]);
+
+  // const handleRemove = (item) => {
+  //   setCartProducts((prev) =>
+  //     prev.filter((product) => product._id !== item._id),
+  //   );
+  //   toast.success("Product removed from cart!");
+  // };
+
+  const handleClickRemove = (item) => {
+    setSelectedProduct(item);
+    setOpen(true);
+  };
+
+  const handleConfirmRemove = () => {
+    setCartProducts((prev) =>
+      prev.filter((item) => item._id !== selectedProduct._id),
+    );
+    toast.success("Product removed from cart!");
+    setOpen(false);
+    setSelectedProduct(null);
+  };
 
   return (
     <main className={styles.myCartPage}>
@@ -96,7 +113,8 @@ export const MyCart = () => {
                     <button
                       type="button"
                       className={styles.removeButton}
-                      onClick={() => handleRemove(product)}
+                      // onClick={() => handleRemove(product)}
+                      onClick={() => handleClickRemove(product)}
                     >
                       <FiTrash2 size={16} /> <span>REMOVE</span>
                     </button>
@@ -152,6 +170,11 @@ export const MyCart = () => {
           </p>
         </aside>
       </div>
+      <MyCartDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleConfirmRemove}
+      />
     </main>
   );
 };
