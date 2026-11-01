@@ -17,6 +17,13 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://your-project.vercel.app"],
+    credentials: true,
+  }),
+);
+
 app.get("/", (req, res) => {
   res.json({
     message: "E-commerce API is running",
