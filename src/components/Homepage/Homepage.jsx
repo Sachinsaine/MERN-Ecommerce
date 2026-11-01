@@ -24,7 +24,7 @@ export const Homepage = () => {
     const fetchCategories = async () => {
       try {
         const getCategories = await fetch(
-          `${import.meta.env.VITE_URL_API}/api/auth/homepage-category`,
+          `${import.meta.env.VITE_API_URL}/api/auth/homepage-category`,
         );
         const response = await getCategories.json();
         setCategories(response.categories);
@@ -37,7 +37,7 @@ export const Homepage = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_URL_API}/api/auth/homepage-product`,
+          `${import.meta.env.VITE_API_URL}/api/auth/homepage-product`,
         );
 
         if (!response.ok) {

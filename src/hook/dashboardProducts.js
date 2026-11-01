@@ -7,7 +7,7 @@ export const useFetchDashboardProducts = () => {
     const fetchProducts = async () => {
       try {
         const getProducts = await fetch(
-          `${import.meta.env.VITE_URL_API}/api/auth/getProducts`,
+          `${import.meta.env.VITE_API_URL}/api/auth/getProducts`,
         );
 
         if (!getProducts.ok) {
