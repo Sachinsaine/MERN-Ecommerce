@@ -1,35 +1,32 @@
-import { useContext, useMemo, useState } from "react";
-import { DashboardContext } from "../context/DashboardContext";
+import { useMemo, useState } from "react";
 import styles from "./mycart.module.css";
 import { FiTrash2 } from "react-icons/fi";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useCounterStore } from "../../store/counterStore";
 import { MyCartDialog } from "./MyCartDialog";
+import { useCartStore } from "../../store/cartStore";
 
 export const MyCart = () => {
-  const { cartProducts = [], setCartProducts } = useContext(DashboardContext);
-  const count = useCounterStore((state) => state.count);
-  const increase = useCounterStore((state) => state.increase);
-  const decrease = useCounterStore((state) => state.decrease);
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const totalAddedProducts = cartProducts.length;
+  const cartProducts = useCartStore((state) => state.cart);
+  const increaseQuantity = useCartStore((state) => state.incrementQuantity);
+  const decreaseQuantity = useCartStore((state) => state.decrementQuantity);
+  const removeProduct = useCartStore((state) => state.removeFromCart);
+
+  const totalAddedProducts = cartProducts.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
+
   const subTotal = useMemo(() => {
     return cartProducts.reduce(
-      (sum, product) => sum + Number(product.price),
+      (sum, product) => sum + Number(product.price) * product.quantity,
       0,
     );
   }, [cartProducts]);
-
-  // const handleRemove = (item) => {
-  //   setCartProducts((prev) =>
-  //     prev.filter((product) => product._id !== item._id),
-  //   );
-  //   toast.success("Product removed from cart!");
-  // };
 
   const handleClickRemove = (item) => {
     setSelectedProduct(item);
@@ -37,9 +34,7 @@ export const MyCart = () => {
   };
 
   const handleConfirmRemove = () => {
-    setCartProducts((prev) =>
-      prev.filter((item) => item._id !== selectedProduct._id),
-    );
+    removeProduct(selectedProduct);
     toast.success("Product removed from cart!");
     setOpen(false);
     setSelectedProduct(null);
@@ -85,19 +80,21 @@ export const MyCart = () => {
                         <button
                           type="button"
                           aria-label="Decrease quantity"
-                          onClick={decrease}
+                          onClick={() => decreaseQuantity(product._id)}
                         >
                           −
                         </button>
 
                         <span className={styles.quantityValue}>
-                          <span className={styles.quantityValue}>{count}</span>
+                          <span className={styles.quantityValue}>
+                            {product.quantity}
+                          </span>
                         </span>
 
                         <button
                           type="button"
                           aria-label="Increase quantity"
-                          onClick={increase}
+                          onClick={() => increaseQuantity(product._id)}
                         >
                           +
                         </button>

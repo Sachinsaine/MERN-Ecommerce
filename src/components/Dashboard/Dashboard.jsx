@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
 import styles from "./dashboard.module.css";
-import { FiHeart, FiStar, FiPlus, FiShoppingCart } from "react-icons/fi";
+import { FiHeart, FiStar, FiShoppingCart } from "react-icons/fi";
 import { DashboardContext } from "../context/DashboardContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useCartStore } from "../../store/cartStore";
 
 export const Dashboard = () => {
   useFetchDashboardProducts();
@@ -12,29 +13,17 @@ export const Dashboard = () => {
   const [added, setAdded] = useState([]);
   const {
     dashboardProducts = [],
-    cartProducts = [],
     loading,
-    setCartProducts,
     wishlist,
     setWishlist,
   } = useContext(DashboardContext);
 
+  const myCart = useCartStore((state) => state.cart);
+  const addToCart = useCartStore((state) => state.addToCart);
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
-
-  const handleAddToCart = (item) => {
-    const alreadyExist = cartProducts.some(
-      (product) => product._id === item._id,
-    );
-
-    if (alreadyExist) {
-      toast.error("Product is already in your cart!");
-      return;
-    }
-    setCartProducts((prev) => [...prev, item]);
-    toast.success("Product has been added to the cart!");
-  };
 
   const handleSelectedProduct = (item) => {
     navigate("/product-details", {
@@ -142,10 +131,10 @@ export const Dashboard = () => {
                   <button
                     type="button"
                     className={styles.addToCartBtn}
-                    onClick={() => handleAddToCart(product)}
+                    onClick={() => addToCart(product)}
                     disabled={added.includes(product._id)}
                   >
-                    {cartProducts.some((item) => item._id === product._id) ? (
+                    {myCart.some((item) => item._id === product._id) ? (
                       "Added"
                     ) : (
                       <>

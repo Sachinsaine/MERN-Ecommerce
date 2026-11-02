@@ -1,17 +1,16 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 
 import styles from "./navbar.module.css";
 import logo from "../../assets/logo.png";
-import { DashboardContext } from "../context/DashboardContext";
+import { useCartStore } from "../../store/cartStore";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { cartProducts } = useContext(DashboardContext);
 
   const closeMenu = () => setMenuOpen(false);
-  const totalAddedProducts = cartProducts.length;
+  const totalProducts = useCartStore((state) => state.cart.length);
 
   return (
     <header className={styles.header}>
@@ -72,7 +71,7 @@ export const Navbar = () => {
             <FiShoppingCart />
 
             <span className={styles.cartBadge}>
-              {totalAddedProducts > 99 ? "99+" : totalAddedProducts}
+              {totalProducts > 99 ? "99+" : totalProducts}
             </span>
           </Link>
 
