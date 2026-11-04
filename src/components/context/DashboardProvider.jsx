@@ -4,7 +4,6 @@ import { DashboardContext } from "./DashboardContext";
 export const DashboardProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [dashboardProducts, setDashboardProducts] = useState([]);
-  const [cartProducts, setCartProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
   return (
@@ -14,8 +13,6 @@ export const DashboardProvider = ({ children }) => {
         setDashboardProducts,
         loading,
         setLoading,
-        cartProducts,
-        setCartProducts,
         wishlist,
         setWishlist,
       }}

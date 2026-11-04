@@ -1,10 +1,11 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiHeart } from "react-icons/fi";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./productdetails.module.css";
+import { useCartStore } from "../../store/cartStore";
 
 export const ProductDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const product = state?.product;
 
@@ -16,22 +17,18 @@ export const ProductDetails = () => {
       </main>
     );
   }
-  console.log(product);
 
   const colours = product.product_colors || [];
+
+  const handleProductDetails = (item) => {
+    addToCart(item);
+    navigate("/mycart");
+  };
 
   return (
     <main className={styles.productDetailsPage}>
       <div className={styles.productCard}>
         <div className={styles.imagePanel}>
-          <button
-            type="button"
-            className={styles.wishlistButton}
-            aria-label="Add to wishlist"
-          >
-            <FiHeart />
-          </button>
-
           <img
             className={styles.productImage}
             src={product.image_link}
@@ -84,9 +81,13 @@ export const ProductDetails = () => {
           )}
 
           <div className={styles.purchaseRow}>
-            <Link to="/home" type="button" className={styles.buyButton}>
+            <button
+              type="button"
+              className={styles.buyButton}
+              onClick={() => handleProductDetails(product)}
+            >
               BUY NOW
-            </Link>
+            </button>
           </div>
         </section>
       </div>
