@@ -21,13 +21,13 @@ export const useCartStore = create((set) => ({
     toast.success("Product added to cart!");
   },
 
-  removeFromCart: (product) =>
-    set(
-      (state) => ({
-        cart: state.cart.filter((item) => item._id !== product._id),
-      }),
-      toast.success("Product removed from cart!"),
-    ),
+  removeFromCart: (product) => {
+    set((state) => ({
+      cart: state.cart.filter((item) => item._id !== product._id),
+    }));
+
+    toast.success("Product removed from cart!");
+  },
 
   incrementQuantity: (id) =>
     set((state) => ({

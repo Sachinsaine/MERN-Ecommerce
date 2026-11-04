@@ -38,6 +38,7 @@ export const MyCart = () => {
     toast.success("Product removed from cart!");
     setOpen(false);
     setSelectedProduct(null);
+    
   };
 
   return (
