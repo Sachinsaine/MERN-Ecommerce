@@ -6,6 +6,7 @@ import { DashboardContext } from "../context/DashboardContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../../store/cartStore";
+import Loader from "../Loader/Loader";
 
 export const Dashboard = () => {
   useFetchDashboardProducts();
@@ -22,7 +23,7 @@ export const Dashboard = () => {
   const addToCart = useCartStore((state) => state.addToCart);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   const handleSelectedProduct = (item) => {

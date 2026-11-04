@@ -1,0 +1,104 @@
+/* Uses variables from your global stylesheet (:root) */
+.loader {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ring {
+  --size: 56px;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  border: 3px solid var(--pink-pale);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+/* gold dot riding the ring */
+.ring::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  background-color: var(--gold);
+  border-radius: 50%;
+}
+
+.text {
+  color: var(--gray-dark);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* sizes */
+.sm .ring {
+  --size: 20px;
+  border-width: 2px;
+}
+.sm .ring::after {
+  display: none;
+}
+.lg .ring {
+  --size: 80px;
+  border-width: 4px;
+}
+
+/* full-page overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* centered inside a section */
+.block {
+  display: flex;
+  justify-content: center;
+  padding-block: 64px;
+}
+
+/* inside your global .btn (a global class, so it needs :global) */
+:global(.btn) .ring {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: var(--white);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    animation: pulse 1.6s ease-in-out infinite !important;
+    animation-duration: 1.6s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
