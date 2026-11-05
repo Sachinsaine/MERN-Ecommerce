@@ -1,0 +1,283 @@
+.page {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 40px 20px 70px;
+  color: var(--black);
+}
+
+.hero {
+  text-align: center;
+  background: var(--pink-pale);
+  padding: 65px 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 65px;
+}
+
+.eyebrow,
+.sectionHeading span {
+  color: var(--pink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero h1,
+.sectionHeading h2,
+.contactSection h2 {
+  font-family: var(--serif);
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin: 15px 0;
+}
+
+.hero p,
+.sectionHeading p {
+  color: var(--gray-dark);
+  line-height: 1.7;
+}
+
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.sectionHeading h2 {
+  font-size: 30px;
+  margin: 12px 0;
+}
+
+.requestSection,
+.processSection,
+.policySection,
+.faqSection {
+  margin-bottom: 75px;
+}
+
+.requestForm {
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.formGroup {
+  margin-bottom: 22px;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--gray-mid);
+  border-radius: var(--border-radius);
+  font-family: var(--sans);
+  font-size: 15px;
+  outline: none;
+  background: var(--white);
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: var(--pink);
+}
+
+.typeOptions {
+  display: flex;
+  gap: 12px;
+}
+
+.typeOptions button {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: var(--transition);
+}
+
+.typeOptions .activeType {
+  background: var(--pink-pale);
+  border-color: var(--pink);
+  color: var(--pink);
+  font-weight: 700;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 14px;
+  background: var(--pink);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.submitButton:hover {
+  background: var(--pink-light);
+}
+
+.stepsGrid,
+.policyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stepCard,
+.policyCard {
+  padding: 25px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.stepCard > span {
+  color: var(--pink);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.stepCard h3,
+.policyCard h3 {
+  font-size: 18px;
+  margin: 18px 0 10px;
+}
+
+.stepCard p,
+.policyCard p {
+  color: var(--gray-dark);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.policyGrid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.policyCard {
+  border-left: 3px solid var(--pink);
+}
+
+.faqList {
+  max-width: 850px;
+  margin: auto;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.faqQuestion {
+  width: 100%;
+  padding: 20px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.faqQuestion span {
+  color: var(--pink);
+  font-size: 24px;
+}
+
+.faqAnswer {
+  padding: 0 5px 20px;
+  color: var(--gray-dark);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.contactSection {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 45px 20px;
+  border-radius: var(--border-radius);
+}
+
+.contactSection h2 {
+  font-size: 30px;
+  margin: 0 0 12px;
+}
+
+.contactSection p {
+  color: #cccccc;
+  margin-bottom: 25px;
+}
+
+.contactSection a {
+  display: inline-block;
+  padding: 12px 30px;
+  background: var(--pink);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.contactSection a:hover {
+  background: var(--pink-light);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 25px 15px 45px;
+  }
+
+  .hero {
+    padding: 45px 15px;
+    margin-bottom: 45px;
+  }
+
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .policyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeading h2 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .requestForm {
+    padding: 20px 15px;
+  }
+
+  .faqQuestion {
+    font-size: 14px;
+  }
+}

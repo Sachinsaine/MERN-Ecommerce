@@ -12,6 +12,8 @@ import { ProductDetails } from "./components/ProductDetails/ProductDetails";
 import { About } from "./components/About/About";
 import { Contact } from "./components/Contact/Contact";
 import { Wishlist } from "./components/Wishlist/Wishlist";
+import { FAQ } from "./components/FAQ/FAQ";
+import { ReturnExchange } from "./components/Return & Exchange/Return&Exchange";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/return&exchange" element={<ReturnExchange />} />
           </Routes>
 
           <Footer />

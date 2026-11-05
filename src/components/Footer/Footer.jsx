@@ -78,9 +78,9 @@ export const Footer = () => {
         <div className={styles.footerColumn}>
           <h3>HELP & SUPPORT</h3>
           <Link to="/">Contact Us</Link>
-          <Link to="/">FAQs</Link>
+          <Link to="/faq">FAQs</Link>
           <Link to="/">Shipping Information</Link>
-          <Link to="/">Returns & Exchanges</Link>
+          <Link to="/return&exchange">Returns & Exchanges</Link>
           <Link to="/">Track Your Order</Link>
         </div>
 
