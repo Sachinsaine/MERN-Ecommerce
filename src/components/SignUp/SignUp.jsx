@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import {
   FiUser,
@@ -9,11 +10,62 @@ import {
   FiEyeOff,
   FiArrowRight,
 } from "react-icons/fi";
+import { z } from "zod";
 import styles from "./signup.module.css";
+import { useForm } from "react-hook-form";
+
+const userData = z
+  .object({
+    name: z.string().trim().min(3, "Name must contain at least 3 characters"),
+    email: z
+      .string()
+      .trim()
+      .min(1, "Email is required")
+      .email("Enter a valid email address"),
+    phone: z
+      .string()
+      .trim()
+      .regex(/^[0-9]{10}$/, "Phone number must contain exactly 10 digits"),
+    password: z
+      .string()
+      .min(6, "Password must contain at least 6 characters")
+      .max(64, "Password cannot exceed 64 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+    terms: z.boolean().refine((value) => value === true, {
+      message: "Please accept Terms & Conditions",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password do not match",
+    path: ["confirmPassword"],
+  });
 
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const {
+    register,
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    reset,
+  } = useForm({
+    resolver: zodResolver(userData),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      terms: false,
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+
+    reset();
+  };
 
   return (
     <main className={styles.signupPage}>
@@ -49,7 +101,7 @@ export const SignUp = () => {
               <p>Fill in your details to get started.</p>
             </div>
 
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.formGroup}>
                 <label htmlFor="name">Full Name</label>
 
@@ -61,9 +113,12 @@ export const SignUp = () => {
                     id="name"
                     name="name"
                     placeholder="Enter your full name"
-                    required
+                    {...register("name")}
                   />
                 </div>
+                {errors.name && (
+                  <small className={styles.error}>{errors.name.message}</small>
+                )}
               </div>
 
               <div className={styles.formGroup}>
@@ -77,9 +132,12 @@ export const SignUp = () => {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    required
+                    {...register("email")}
                   />
                 </div>
+                {errors.email && (
+                  <small className={styles.error}>{errors.email.message}</small>
+                )}
               </div>
 
               <div className={styles.formGroup}>
@@ -93,11 +151,12 @@ export const SignUp = () => {
                     id="phone"
                     name="phone"
                     placeholder="Enter your phone number"
-                    pattern="[0-9]{10}"
-                    maxLength="10"
-                    required
+                    {...register("phone")}
                   />
                 </div>
+                {errors.phone && (
+                  <small className={styles.error}>{errors.phone.message}</small>
+                )}
               </div>
 
               <div className={styles.formGroup}>
@@ -111,8 +170,7 @@ export const SignUp = () => {
                     id="password"
                     name="password"
                     placeholder="Create a password"
-                    minLength="6"
-                    required
+                    {...register("password")}
                   />
 
                   <button
@@ -123,6 +181,11 @@ export const SignUp = () => {
                     {showPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
+                {errors.password && (
+                  <small className={styles.error}>
+                    {errors.password.message}
+                  </small>
+                )}
               </div>
 
               <div className={styles.formGroup}>
@@ -136,8 +199,7 @@ export const SignUp = () => {
                     id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Confirm your password"
-                    minLength="6"
-                    required
+                    {...register("confirmPassword")}
                   />
 
                   <button
@@ -148,19 +210,30 @@ export const SignUp = () => {
                     {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
+                {errors.confirmPassword && (
+                  <small className={styles.error}>
+                    {errors.confirmPassword.message}
+                  </small>
+                )}
               </div>
 
-              <label className={styles.terms}>
-                <input type="checkbox" name="terms" required />
+              <div>
+                <label className={styles.terms}>
+                  <input type="checkbox" {...register("terms")} />
 
-                <span>
-                  I agree to the <Link to="/terms">Terms & Conditions</Link> and{" "}
-                  <Link to="/privacy">Privacy Policy</Link>.
-                </span>
-              </label>
+                  <span>
+                    I agree to the <Link to="/terms">Terms & Conditions</Link>{" "}
+                    and <Link to="/privacy">Privacy Policy</Link>.
+                  </span>
+                </label>
+
+                {errors.terms && (
+                  <small className={styles.error}>{errors.terms.message}</small>
+                )}
+              </div>
 
               <button type="submit" className={styles.submitButton}>
-                CREATE ACCOUNT <FiArrowRight />
+                {isSubmitting ? "Creating account" : "SIGN UP"} <FiArrowRight />
               </button>
             </form>
 

@@ -251,7 +251,12 @@
   text-align: center;
 }
 
-/* Responsive */
+.error {
+  display: block;
+  color: #dc3545;
+  font-size: 12px;
+  font-weight: 500;
+}
 
 @media (max-width: 768px) {
   .signupPage {
