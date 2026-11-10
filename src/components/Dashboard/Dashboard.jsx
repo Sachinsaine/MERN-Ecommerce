@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useFetchDashboardProducts } from "../../hook/dashboardProducts";
 import styles from "./dashboard.module.css";
-import { FiHeart, FiStar, FiShoppingCart } from "react-icons/fi";
+import { FiHeart, FiStar, FiShoppingCart, FiSearch } from "react-icons/fi";
 import { DashboardContext } from "../context/DashboardContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ export const Dashboard = () => {
   useFetchDashboardProducts();
   const navigate = useNavigate();
   const [added, setAdded] = useState([]);
+  const [inputData, setInputData] = useState("");
+
   const {
     dashboardProducts = [],
     loading,
@@ -44,6 +46,19 @@ export const Dashboard = () => {
     }
   };
 
+  const filterProducts = dashboardProducts.filter((item) => {
+    const filterByCategory = item.category
+      .toLocaleLowerCase()
+      .includes(inputData.toLocaleLowerCase());
+
+    const filterByName = item.name
+      .toLocaleLowerCase()
+      .includes(inputData.toLocaleLowerCase());
+    return filterByCategory || filterByName;
+  });
+
+  console.log(filterProducts);
+
   return (
     <main className={styles.dashboardPage}>
       <section className={styles.dashboardHeader}>
@@ -63,8 +78,18 @@ export const Dashboard = () => {
             <h2>Explore Products</h2>
           </div>
 
-          <span className={styles.productCount}>
+          {/* <span className={styles.productCount}>
             {dashboardProducts.length} products
+          </span> */}
+          <span className={styles.searchCont}>
+            <span className={styles.search}>
+              <FiSearch />
+            </span>
+            <input
+              type="text"
+              placeholder="Search Products..."
+              onChange={(e) => setInputData(e.target.value)}
+            />
           </span>
         </div>
 
@@ -75,7 +100,7 @@ export const Dashboard = () => {
           </div>
         ) : (
           <div className={styles.productsGrid}>
-            {dashboardProducts.map((product) => (
+            {filterProducts.map((product) => (
               <article className={styles.homeProductCard} key={product._id}>
                 <div className={styles.productImageWrapper}>
                   <img src={product.image_link} alt={product.name} />
