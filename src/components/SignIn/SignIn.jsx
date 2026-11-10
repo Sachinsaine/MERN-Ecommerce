@@ -11,7 +11,7 @@ export const SignIn = () => {
       <div className={styles.signinContainer}>
         <div className={styles.signinBanner}>
           <div className={styles.bannerContent}>
-            <span className={styles.brandName}>ROYAL STORE</span>
+            <span className={styles.brandName}>STYLEORA</span>
 
             <h1>
               Welcome

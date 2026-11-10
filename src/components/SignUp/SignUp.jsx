@@ -18,10 +18,9 @@ export const SignUp = () => {
   return (
     <main className={styles.signupPage}>
       <div className={styles.signupContainer}>
-        {/* Left Banner */}
         <div className={styles.signupBanner}>
           <div className={styles.bannerContent}>
-            <span className={styles.brandName}>ROYAL STORE</span>
+            <span className={styles.brandName}>STYLEORA</span>
 
             <h1>
               Create Your
@@ -40,7 +39,6 @@ export const SignUp = () => {
           </div>
         </div>
 
-        {/* Right Form */}
         <div className={styles.signupFormSection}>
           <div className={styles.formWrapper}>
             <div className={styles.formHeading}>
@@ -52,7 +50,6 @@ export const SignUp = () => {
             </div>
 
             <form>
-              {/* Full Name */}
               <div className={styles.formGroup}>
                 <label htmlFor="name">Full Name</label>
 
@@ -69,7 +66,6 @@ export const SignUp = () => {
                 </div>
               </div>
 
-              {/* Email */}
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email Address</label>
 
@@ -86,7 +82,6 @@ export const SignUp = () => {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className={styles.formGroup}>
                 <label htmlFor="phone">Phone Number</label>
 
@@ -105,7 +100,6 @@ export const SignUp = () => {
                 </div>
               </div>
 
-              {/* Password */}
               <div className={styles.formGroup}>
                 <label htmlFor="password">Password</label>
 
@@ -125,16 +119,12 @@ export const SignUp = () => {
                     type="button"
                     className={styles.passwordToggle}
                     onClick={() => setShowPassword(!showPassword)}
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
                   >
                     {showPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
               </div>
 
-              {/* Confirm Password */}
               <div className={styles.formGroup}>
                 <label htmlFor="confirmPassword">Confirm Password</label>
 
@@ -154,16 +144,12 @@ export const SignUp = () => {
                     type="button"
                     className={styles.passwordToggle}
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    aria-label={
-                      showConfirmPassword ? "Hide password" : "Show password"
-                    }
                   >
                     {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
               </div>
 
-              {/* Terms */}
               <label className={styles.terms}>
                 <input type="checkbox" name="terms" required />
 
@@ -173,7 +159,6 @@ export const SignUp = () => {
                 </span>
               </label>
 
-              {/* Submit */}
               <button type="submit" className={styles.submitButton}>
                 CREATE ACCOUNT <FiArrowRight />
               </button>

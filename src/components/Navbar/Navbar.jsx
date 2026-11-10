@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
+import { FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 
 import styles from "./navbar.module.css";
 import logo from "../../assets/logo.png";
@@ -36,12 +36,12 @@ export const Navbar = () => {
           <Link to="/home" onClick={closeMenu}>
             Home
           </Link>
-          {/* <Link to="/" onClick={closeMenu}>
-            Shop
+          <Link to="/services" onClick={closeMenu}>
+            Services
           </Link>
-          <Link to="/" onClick={closeMenu}>
-            Categories
-          </Link> */}
+          <Link to="/blog" onClick={closeMenu}>
+            Blog
+          </Link>
           <Link to="/about" onClick={closeMenu}>
             About
           </Link>
@@ -51,14 +51,6 @@ export const Navbar = () => {
         </div>
 
         <div className={styles.navActions}>
-          <button
-            className={styles.iconButton}
-            aria-label="Search products"
-            onClick={() => alert("Search coming soon!")}
-          >
-            <FiSearch />
-          </button>
-
           <Link
             to="/wishlist"
             className={styles.iconButton}
