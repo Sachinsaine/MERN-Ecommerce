@@ -21,12 +21,15 @@ export const MyCart = () => {
     0,
   );
 
-  const subTotal = useMemo(() => {
+  let subTotal = useMemo(() => {
     return cartProducts.reduce(
       (sum, product) => sum + Number(product.price) * product.quantity,
       0,
     );
   }, [cartProducts]);
+
+  subTotal = subTotal - 300;
+  subTotal = subTotal + 49;
 
   const handleClickRemove = (item) => {
     setSelectedProduct(item);
@@ -38,7 +41,6 @@ export const MyCart = () => {
     toast.success("Product removed from cart!");
     setOpen(false);
     setSelectedProduct(null);
-    
   };
 
   return (
