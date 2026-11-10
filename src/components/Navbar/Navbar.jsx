@@ -75,7 +75,7 @@ export const Navbar = () => {
             </span>
           </Link>
 
-          <Link to="/" className={styles.loginButton}>
+          <Link to="/sign-in" className={styles.loginButton}>
             Sign In
           </Link>
         </div>

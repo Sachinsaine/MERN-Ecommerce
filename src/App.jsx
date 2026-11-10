@@ -14,6 +14,8 @@ import { Contact } from "./components/Contact/Contact";
 import { Wishlist } from "./components/Wishlist/Wishlist";
 import { FAQ } from "./components/FAQ/FAQ";
 import { ReturnExchange } from "./components/Return & Exchange/Return&Exchange";
+import { SignIn } from "./components/SignIn/SignIn";
+import { SignUp } from "./components/SignUp/SignUp";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/return&exchange" element={<ReturnExchange />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
           </Routes>
 
           <Footer />

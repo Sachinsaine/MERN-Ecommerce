@@ -1,37 +1,7 @@
-import { useState } from "react";
 import { FiMail, FiPhone, FiMapPin, FiClock, FiSend } from "react-icons/fi";
 import styles from "./contact.module.css";
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("Contact Form Data:", formData);
-
-    alert("Thank you! Your message has been submitted.");
-
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
-  };
-
   return (
     <main className={styles.contactPage}>
       {/* Hero Section */}
@@ -112,7 +82,7 @@ export const Contact = () => {
 
           <p>Fill out the form below and we'll get back to you.</p>
 
-          <form onSubmit={handleSubmit} className={styles.contactForm}>
+          <form className={styles.contactForm}>
             <div className={styles.formGroup}>
               <label htmlFor="name">Your Name</label>
 
@@ -121,8 +91,6 @@ export const Contact = () => {
                 id="name"
                 name="name"
                 placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
                 required
               />
             </div>
@@ -135,8 +103,6 @@ export const Contact = () => {
                 id="email"
                 name="email"
                 placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
                 required
               />
             </div>
@@ -149,8 +115,6 @@ export const Contact = () => {
                 id="subject"
                 name="subject"
                 placeholder="How can we help?"
-                value={formData.subject}
-                onChange={handleChange}
                 required
               />
             </div>
@@ -163,8 +127,6 @@ export const Contact = () => {
                 name="message"
                 placeholder="Write your message here..."
                 rows="5"
-                value={formData.message}
-                onChange={handleChange}
                 required
               />
             </div>
@@ -176,7 +138,15 @@ export const Contact = () => {
         </div>
       </section>
 
-      {/* Bottom Section */}
+      <div className={styles.mapContainer}>
+        <iframe
+          title="Our Location - SBR Arcade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5392504190704!2d78.40268477438948!3d17.433885601465526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91b4795b8145%3A0x9a54c648fb058eb3!2sSBR%20Arcade!5e0!3m2!1sen!2sin!4v1794293180910!5m2!1sen!2sin"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
       <section className={styles.bottomSection}>
         <p className={styles.eyebrow}>WE'RE HERE FOR YOU</p>
 

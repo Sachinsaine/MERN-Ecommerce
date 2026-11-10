@@ -24,7 +24,7 @@
   --shadow-md: 0 4px 16px rgba(10, 10, 10, 0.1);
 
   --container-width: 1200px;
-  --border-radius: 8px;
+  /* --border-radius: 8px; */
   --transition: 0.3s ease;
 }
 

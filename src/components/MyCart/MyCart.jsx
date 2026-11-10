@@ -3,7 +3,6 @@ import styles from "./mycart.module.css";
 import { FiTrash2 } from "react-icons/fi";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
 import { MyCartDialog } from "./MyCartDialog";
 import { useCartStore } from "../../store/cartStore";
 
@@ -28,8 +27,10 @@ export const MyCart = () => {
     );
   }, [cartProducts]);
 
-  subTotal = subTotal - 300;
-  subTotal = subTotal + 49;
+  const discount = 300;
+  const deliveryCharge = 49;
+
+  const totalAmount = subTotal - discount + deliveryCharge;
 
   const handleClickRemove = (item) => {
     setSelectedProduct(item);
@@ -38,7 +39,6 @@ export const MyCart = () => {
 
   const handleConfirmRemove = () => {
     removeProduct(selectedProduct);
-    toast.success("Product removed from cart!");
     setOpen(false);
     setSelectedProduct(null);
   };
@@ -157,7 +157,7 @@ export const MyCart = () => {
 
           <div className={`${styles.summaryRow} ${styles.totalRow}`}>
             <span>Total Amount</span>
-            <strong>{`₹${subTotal}.00`}</strong>
+            <strong>{`₹${totalAmount}.00`}</strong>
           </div>
 
           <button type="button" className={styles.checkoutButton}>
