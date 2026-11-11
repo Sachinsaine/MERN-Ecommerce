@@ -14,7 +14,7 @@
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   background: var(--white);
-  border-radius: 12px;
+  border-radius: 3px;
   box-shadow: var(--shadow-md);
 }
 
@@ -215,13 +215,14 @@
   justify-content: center;
   gap: 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 3px;
   background: var(--pink);
   color: var(--white);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1.5px;
   transition: var(--transition);
+  padding: 12px 21px;
 }
 
 .submitButton:hover {

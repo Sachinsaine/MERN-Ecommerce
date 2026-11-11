@@ -1,11 +1,48 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import styles from "./signin.module.css";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const userData = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required")
+    .email("Enter valid email address"),
+  password: z
+    .string()
+    .min(6, "Password must contain at least 6 characters")
+    .max(64, "Password cannot exceed 64 characters"),
+});
 
 export const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const {
+    register,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+    reset,
+    handleSubmit,
+  } = useForm({
+    resolver: zodResolver(userData),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/home");
+  };
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
   return (
     <main className={styles.signinPage}>
       <div className={styles.signinContainer}>
@@ -40,7 +77,7 @@ export const SignIn = () => {
               <p>Enter your details to access your account.</p>
             </div>
 
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email Address</label>
 
@@ -50,11 +87,13 @@ export const SignIn = () => {
                   <input
                     type="email"
                     id="email"
-                    name="email"
                     placeholder="Enter your email"
-                    required
+                    {...register("email")}
                   />
                 </div>
+                {errors.email && (
+                  <span className={styles.error}>{errors.email.message}</span>
+                )}
               </div>
 
               <div className={styles.formGroup}>
@@ -66,9 +105,8 @@ export const SignIn = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
-                    name="password"
                     placeholder="Enter your password"
-                    required
+                    {...register("password")}
                   />
 
                   <button
@@ -82,6 +120,11 @@ export const SignIn = () => {
                     {showPassword ? <FiEyeOff /> : <FiEye />}
                   </button>
                 </div>
+                {errors.password && (
+                  <span className={styles.error}>
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
 
               <div className={styles.formOptions}>
@@ -95,8 +138,12 @@ export const SignIn = () => {
                 </Link>
               </div>
 
-              <button type="submit" className={styles.submitButton}>
-                SIGN IN <FiArrowRight />
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Signing in..." : "SIGN IN"} <FiArrowRight />
               </button>
             </form>
 

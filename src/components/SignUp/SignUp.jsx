@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FiUser,
   FiMail,
@@ -43,10 +43,10 @@ const userData = z
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const navigate = useNavigate();
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
     handleSubmit,
     reset,
   } = useForm({
@@ -61,10 +61,15 @@ export const SignUp = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
-    reset();
+  const onSubmit = (data) => {
+    console.log("User Data:", data);
+    navigate("/sign-in");
   };
 
   return (
@@ -111,7 +116,6 @@ export const SignUp = () => {
                   <input
                     type="text"
                     id="name"
-                    name="name"
                     placeholder="Enter your full name"
                     {...register("name")}
                   />
@@ -130,7 +134,6 @@ export const SignUp = () => {
                   <input
                     type="email"
                     id="email"
-                    name="email"
                     placeholder="Enter your email"
                     {...register("email")}
                   />
@@ -149,7 +152,6 @@ export const SignUp = () => {
                   <input
                     type="tel"
                     id="phone"
-                    name="phone"
                     placeholder="Enter your phone number"
                     {...register("phone")}
                   />
@@ -168,7 +170,6 @@ export const SignUp = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
-                    name="password"
                     placeholder="Create a password"
                     {...register("password")}
                   />
@@ -197,7 +198,6 @@ export const SignUp = () => {
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
-                    name="confirmPassword"
                     placeholder="Confirm your password"
                     {...register("confirmPassword")}
                   />
@@ -232,8 +232,12 @@ export const SignUp = () => {
                 )}
               </div>
 
-              <button type="submit" className={styles.submitButton}>
-                {isSubmitting ? "Creating account" : "SIGN UP"} <FiArrowRight />
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Signing up..." : "SIGN UP"} <FiArrowRight />
               </button>
             </form>
 
