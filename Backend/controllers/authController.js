@@ -4,26 +4,38 @@ const User = require("../models/user");
 
 const signUp = async (req, res) => {
   try {
-    const { name, email, mobile, password } = req.body;
+    const { name, email, phone, password, confirmPassword } = req.body;
+
+    if (!name || !email || !phone || !password || !confirmPassword) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({
+        message: "Passwords do not match",
+      });
+    }
 
     const userExist = await User.findOne({
-      $or: [{ email }, { mobile }],
+      $or: [{ email: email.trim().toLowerCase() }, { mobile: phone.trim() }],
     });
 
     if (userExist) {
-      return res.status(400).json({
-        message: "Email or mobile number already registered",
+      return res.status(409).json({
+        message: "Email or phone number already registered",
       });
     }
 
     const user = await User.create({
       name,
-      email,
-      mobile,
+      email: email.trim().toLowerCase(),
+      mobile: phone.trim(),
       password,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "Signup successful",
       user: {
         id: user._id,
@@ -34,9 +46,15 @@ const signUp = async (req, res) => {
     });
   } catch (error) {
     console.log("Signup Error:", error.message);
-    res.status(500).json({
+
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "Email or phone number already registered",
+      });
+    }
+
+    return res.status(500).json({
       message: "Registration failed",
-      error: error.message,
     });
   }
 };
@@ -45,23 +63,25 @@ const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email: email.trim().toLowerCase(),
+    });
 
     if (!user) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: "Invalid email or password",
       });
     }
 
-    const userPassword = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!userPassword) {
-      return res.status(400).json({
+    if (!isMatch) {
+      return res.status(401).json({
         message: "Invalid email or password",
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Signin successful",
       user: {
         id: user._id,
@@ -71,11 +91,10 @@ const signIn = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("Error:", error);
+    console.log("Signin Error:", error.message);
 
-    res.status(500).json({
-      message: "SignIn failed",
-      error: error.message,
+    return res.status(500).json({
+      message: "Signin failed",
     });
   }
 };
