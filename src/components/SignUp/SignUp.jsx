@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -13,6 +13,7 @@ import {
 import { z } from "zod";
 import styles from "./signup.module.css";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const userData = z
   .object({
@@ -46,7 +47,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const {
     register,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
     handleSubmit,
     reset,
   } = useForm({
@@ -61,15 +62,46 @@ export const SignUp = () => {
     },
   });
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
+  const onSubmit = async (data) => {
+    const singUpUrl = `${import.meta.env.VITE_API_URL}/api/auth/signup`;
+    console.log("signUp Url:", singUpUrl);
 
-  const onSubmit = (data) => {
-    console.log("User Data:", data);
-    navigate("/sign-in");
+    try {
+      const response = await fetch(singUpUrl, {
+        method: "POST",
+
+        headers: {
+          "Content-type": "application/json",
+        },
+
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        }),
+      });
+
+      console.log("Response status:", response.status);
+      const result = await response.json();
+
+      console.log("Response:", result);
+
+      if (!response.ok) {
+        toast.error(result.message || "SignUp failed");
+        return;
+      }
+
+      toast.success("Sign Up successfull! Please sign in");
+      reset();
+      navigate("/sign-in", {
+        replace: true,
+      });
+    } catch (error) {
+      console.error("REGISTER ERROR:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (

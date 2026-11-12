@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 const express = require("express");
 const { signUp, signIn } = require("../controllers/authController");
+const router = express.Router();
+const authMiddleware = require("../middleware/authMiddleware");
 
 const {
   addProducts,
@@ -18,8 +20,6 @@ const {
   getProduct: getHomepageProducts,
 } = require("../controllers/homepageProductsController");
 
-const router = express.Router();
-
 // Homepage categories
 router.post("/homepage-category", addCategories);
 router.get("/homepage-category", getCategories);
@@ -33,8 +33,8 @@ router.post("/signup", signUp);
 router.post("/signin", signIn);
 
 // Dashboard products
-router.post("/addProduct", addProducts);
-router.get("/getProducts", getProducts);
-router.delete("/product/:id", deleteProduct);
+router.post("/addProduct", authMiddleware, addProducts);
+router.get("/getProducts", authMiddleware, getProducts);
+router.delete("/product/:id", authMiddleware, deleteProduct);
 
 module.exports = router;

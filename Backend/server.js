@@ -7,22 +7,28 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 require("dotenv").config();
 
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-
-app.use("/api/auth", authRoutes);
-
+// Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://your-project.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://mern-ecommerce-orpin-iota.vercel.app/",
+    ],
     credentials: true,
   }),
 );
+
+app.use(express.json());
+app.use(cookieParser());
+
+// Routes
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.json({
