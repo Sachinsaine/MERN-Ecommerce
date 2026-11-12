@@ -8,14 +8,18 @@ export const useFetchDashboardProducts = () => {
       try {
         const getProducts = await fetch(
           `${import.meta.env.VITE_API_URL}/api/auth/getProducts`,
+          {
+            method: "GET",
+            credentials: "include",
+          },
         );
 
         if (!getProducts.ok) {
-          throw new Error("Failed to fetch products");
+          throw new Error(data.message || "Failed to fetch products");
         }
 
         const data = await getProducts.json();
-        setDashboardProducts(data.products);
+        setDashboardProducts(data.products || []);
       } catch (error) {
         console.log("Failed to fetch Homepage products:", error.message);
       } finally {
@@ -23,5 +27,5 @@ export const useFetchDashboardProducts = () => {
       }
     };
     fetchProducts();
-  }, [setDashboardProducts]);
+  }, [setDashboardProducts, setLoading]);
 };
