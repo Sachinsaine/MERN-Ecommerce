@@ -99,7 +99,7 @@ export const SignUp = () => {
         replace: true,
       });
     } catch (error) {
-      console.error("REGISTER ERROR:", error);
+      console.error("SIGNUP ERROR:", error);
       toast.error("Something went wrong. Please try again.");
     }
   };

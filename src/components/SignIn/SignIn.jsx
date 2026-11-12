@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import styles from "./signin.module.css";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 const userData = z.object({
   email: z
@@ -23,7 +24,7 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const {
     register,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
     reset,
     handleSubmit,
   } = useForm({
@@ -33,16 +34,43 @@ export const SignIn = () => {
       password: "",
     },
   });
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    navigate("/home");
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        },
+      );
+
+      const result = await response.json();
+
+      console.log("LOGIN RESPONSE:", result);
+
+      if (!response.ok) {
+        toast.error(result.message || "Sign in failed");
+        return;
+      }
+      reset();
+      navigate("/home", {
+        replace: true,
+      });
+    } catch (error) {
+      console.error("SIGNIN ERROR:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
   return (
     <main className={styles.signinPage}>
       <div className={styles.signinContainer}>
