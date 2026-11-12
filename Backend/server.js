@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://mern-ecommerce-orpin-iota.vercel.app/",
+      "https://mern-ecommerce-orpin-iota.vercel.app",
     ],
     credentials: true,
   }),
