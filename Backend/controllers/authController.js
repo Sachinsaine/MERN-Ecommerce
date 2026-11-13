@@ -92,12 +92,21 @@ const signIn = async (req, res) => {
       expiresIn: "1d",
     });
 
+    // For local development (localhost):
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: false,
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
+
+    // For deployment (Vercel + Render):
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: "none",
+    //   maxAge: 24 * 60 * 60 * 1000,
+    // });
 
     return res.status(200).json({
       message: "Signin successful",

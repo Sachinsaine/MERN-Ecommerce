@@ -57,8 +57,6 @@ export const Dashboard = () => {
     return filterByCategory || filterByName;
   });
 
-  console.log(filterProducts);
-
   return (
     <main className={styles.dashboardPage}>
       <section className={styles.dashboardHeader}>

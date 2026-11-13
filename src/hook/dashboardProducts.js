@@ -14,11 +14,11 @@ export const useFetchDashboardProducts = () => {
           },
         );
 
+        const data = await getProducts.json();
         if (!getProducts.ok) {
           throw new Error(data.message || "Failed to fetch products");
         }
 
-        const data = await getProducts.json();
         setDashboardProducts(data.products || []);
       } catch (error) {
         console.log("Failed to fetch Homepage products:", error.message);
