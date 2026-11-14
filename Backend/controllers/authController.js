@@ -126,4 +126,37 @@ const signIn = async (req, res) => {
   }
 };
 
-module.exports = { signUp, signIn };
+const Logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
+  });
+
+  return res.status(200).json({
+    message: "Logout successful",
+  });
+};
+
+const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    console.log(error.message || "Get me error.");
+
+    return res.status(500).json({
+      message: "Failed to get user",
+    });
+  }
+};
+
+module.exports = { signUp, signIn, Logout, getMe };

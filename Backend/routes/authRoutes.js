@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
 const express = require("express");
-const { signUp, signIn } = require("../controllers/authController");
+const {
+  signUp,
+  signIn,
+  Logout,
+  getMe,
+} = require("../controllers/authController");
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -31,6 +36,8 @@ router.get("/homepage-product", getHomepageProducts);
 // Signup and signin
 router.post("/signup", signUp);
 router.post("/signin", signIn);
+router.post("/logout", Logout);
+router.get("/me", authMiddleware, getMe);
 
 // Dashboard products
 router.post("/addProduct", authMiddleware, addProducts);

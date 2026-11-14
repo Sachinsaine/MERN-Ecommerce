@@ -18,8 +18,10 @@ import { SignIn } from "./components/SignIn/SignIn";
 import { SignUp } from "./components/SignUp/SignUp";
 import { Services } from "./components/ServicesPage/Services";
 import { Blog } from "./components/BlogPage/Blog";
+import { ProtectedRoutes } from "./components/ProtectedRoutes";
 
 function App() {
+  const isLoggedIn = true;
   return (
     <BrowserRouter>
       <HomepageContextProvider>
@@ -27,21 +29,25 @@ function App() {
           <Navbar />
 
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Homepage />} />
-            <Route path="/home" element={<Dashboard />} />
-            <Route path="/mycart" element={<MyCart />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/product-details" element={<ProductDetails />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/return&exchange" element={<ReturnExchange />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
-          </Routes>
 
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn} />}>
+              <Route path="/home" element={<Dashboard />} />
+              <Route path="/mycart" element={<MyCart />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/product-details" element={<ProductDetails />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/return&exchange" element={<ReturnExchange />} />
+            </Route>
+          </Routes>
           <Footer />
           <Toaster position="top-right" />
         </DashboardProvider>
