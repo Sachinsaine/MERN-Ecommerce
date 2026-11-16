@@ -49,4 +49,6 @@ export const useCartStore = create((set) => ({
     useCartStore
       .getState()
       .cart.reduce((total, item) => total + item.quantity, 0),
+
+  clearCart: () => set({ cart: [] }),
 }));

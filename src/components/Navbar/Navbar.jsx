@@ -1,53 +1,26 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 
 import styles from "./navbar.module.css";
 import logo from "../../assets/logo.png";
 import { useCartStore } from "../../store/cartStore";
 import toast from "react-hot-toast";
+import { DashboardContext } from "../context/DashboardContext";
+import { AuthContext } from "../context/AuthContext";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true);
 
   const closeMenu = () => setMenuOpen(false);
 
   const totalProducts = useCartStore((state) => state.cart.length);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/auth/me`,
-          {
-            method: "GET",
-            credentials: "include",
-            cache: "no-store",
-          },
-        );
-
-        if (!response.ok) {
-          setUser(null);
-          return;
-        }
-
-        const data = await response.json();
-        setUser(data.user);
-      } catch (error) {
-        console.log("Auth Error:", error.message);
-        setUser(null);
-      } finally {
-        setAuthLoading(false);
-      }
-    };
-
-    checkUser();
-  }, [location.pathname]);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const { setWishlist } = useContext(DashboardContext);
+  const { user, setUser, authLoading } = useContext(AuthContext);
 
   const handleLogout = async () => {
     try {
@@ -66,13 +39,13 @@ export const Navbar = () => {
       }
 
       setUser(null);
+      clearCart();
+      setWishlist([]);
 
       toast.success("Logout successful!");
-
       navigate("/");
     } catch (error) {
       toast.error(error.message || "Logout failed");
-      console.log("Logout Error:", error.message);
     }
   };
 

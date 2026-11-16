@@ -1,9 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
 
-export const ProtectedRoutes = ({ isLoggedIn }) => {
-  if (!isLoggedIn) {
-    return <Navigate to="/signin" replace />;
+export const ProtectedRoutes = () => {
+  const { isLoggedIn, authLoading } = useContext(AuthContext);
+
+  if (authLoading) {
+    return <div>Loading...</div>;
   }
 
-  return <Outlet />;
+  return isLoggedIn ? <Outlet /> : <Navigate to="/sign-in" replace />;
 };

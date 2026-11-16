@@ -19,39 +19,40 @@ import { SignUp } from "./components/SignUp/SignUp";
 import { Services } from "./components/ServicesPage/Services";
 import { Blog } from "./components/BlogPage/Blog";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
+import { AuthContextProvider } from "./components/context/AuthContextProvider";
 
 function App() {
-  const isLoggedIn = true;
   return (
     <BrowserRouter>
-      <HomepageContextProvider>
-        <DashboardProvider>
-          <Navbar />
+      <AuthContextProvider>
+        <HomepageContextProvider>
+          <DashboardProvider>
+            <Navbar />
 
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Homepage />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
 
-            {/* Protected Routes */}
-            <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn} />}>
-              <Route path="/home" element={<Dashboard />} />
-              <Route path="/mycart" element={<MyCart />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/product-details" element={<ProductDetails />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/return&exchange" element={<ReturnExchange />} />
-            </Route>
-          </Routes>
-          <Footer />
-          <Toaster position="top-right" />
-        </DashboardProvider>
-      </HomepageContextProvider>
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/home" element={<Dashboard />} />
+                <Route path="/mycart" element={<MyCart />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/product-details" element={<ProductDetails />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/return&exchange" element={<ReturnExchange />} />
+              </Route>
+            </Routes>
+
+            <Footer />
+            <Toaster position="top-right" />
+          </DashboardProvider>
+        </HomepageContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }

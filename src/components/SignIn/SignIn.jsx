@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import styles from "./signin.module.css";
@@ -6,6 +6,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
 
 const userData = z.object({
   email: z
@@ -22,6 +23,7 @@ const userData = z.object({
 export const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
   const {
     register,
     formState: { errors, isSubmitting },
@@ -61,6 +63,7 @@ export const SignIn = () => {
         toast.error(result.message || "Sign in failed");
         return;
       }
+      setUser(result.user);
       reset();
       navigate("/home", {
         replace: true,
